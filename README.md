@@ -148,9 +148,7 @@ proving Gaussian Splatting as a practical foundation for future campus-scale int
 ├── bash/                       # Automated pipeline script (Docker + COLMAP + Training)
 ├── paper/                      # Full project paper (PDF)
 ├── presentation/               # Project presentation slides (PDF)
-├── gaussian_splats/            # Output .ply files (see Google Drive for large files)
-├── videos/                     # Reconstruction and Unreal Engine demo videos
-└── unreal_engine/              # Screenshots from UE5 integration
+
 ## Large Files (Google Drive)
 
 Generated `.ply` files exceed GitHub's size limit and are available here:  
