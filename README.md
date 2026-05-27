@@ -97,6 +97,8 @@ The refined `.ply` was imported into **Unreal Engine 5.1.1** using the **X3DGS p
 
 > ⚠️ Note: Constrained to UE5.1.1 — newer UE versions do not have stable `.ply` Gaussian Splat import support via available plugins
 
+<img width="1956" height="1088" alt="Screenshot 2026-05-27 at 3 38 56 PM" src="https://github.com/user-attachments/assets/9c94876a-0589-40f0-8bd7-2cce1e96268e" />
+
 ---
 
 ## Results Summary
