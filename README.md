@@ -14,14 +14,14 @@ for high visual fidelity, and one fully automated for scalability on a DGX serve
 
 ---
 
-##Step 1 — Data Collection
+## Step 1 — Data Collection
 
 - **Camera:** GoPro with ~80% image overlap
 - **Markers:** AprilTag markers placed around the campus for spatial reference
 - **Locations:** InnovationSPIN building (~60 GB dataset) and Detmold campus (~6 GB dataset)
   
 ---
-##(Choose Pipeline1 or pipeline 2)
+> 💡 **Choose your pipeline:** Use Pipeline 1 for a GUI-based local workflow, or Pipeline 2 for automated server-side processing.
 ---
 ## Pipeline 1 — Manual (RealityScan + LichtFeld Studio)
 
