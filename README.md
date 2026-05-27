@@ -152,7 +152,9 @@ proving Gaussian Splatting as a practical foundation for future campus-scale int
 ## Large Files (Google Drive)
 
 Generated `.ply` files exceed GitHub's size limit and are available here:  
-🔗 [Google Drive – Gaussian Splat outputs](https://drive.google.com/drive/folders/1_tO3gzsEIkANluHxq5s5XHTrmE8MaNiY?usp=sharing)
+🔗 [Google Drive – Gaussian Splat .ply files](https://drive.google.com/drive/folders/1_tO3gzsEIkANluHxq5s5XHTrmE8MaNiY?usp=sharing)
+
+🔗 [Google Drive – Gaussian Splat video](https://drive.google.com/file/d/1U1XIdo7oPOlCeSiUpbphKQ0Sf2UHlZKV/view?usp=sharing)
 
 ---
 
