@@ -21,7 +21,8 @@ for high visual fidelity, and one fully automated for scalability on a DGX serve
 - **Locations:** InnovationSPIN building (~60 GB dataset) and Detmold campus (~6 GB dataset)
   
 ---
-(Choose Pipeline1 or pipeline 2)
+#(Choose Pipeline1 or pipeline 2)
+---
 ## Pipeline 1 — Manual (RealityScan + LichtFeld Studio)
 
 **Dataset:** InnovationSPIN building, ~60 GB  
