@@ -19,22 +19,9 @@ for high visual fidelity, and one fully automated for scalability on a DGX serve
 - **Camera:** GoPro with ~80% image overlap
 - **Markers:** AprilTag markers placed around the campus for spatial reference
 - **Locations:** InnovationSPIN building (~60 GB dataset) and Detmold campus (~6 GB dataset)
-
+  
 ---
-
-## Step 2 — COLMAP (Structure-from-Motion)
-
-COLMAP processes the captured images to estimate camera poses and generate the 3D point cloud required for Gaussian Splatting training.
-
-**Output files:**
-- `cameras.txt` — camera intrinsics
-- `images.txt` — camera poses per image
-- `points3D.txt` — sparse 3D point cloud
-
-> Export resolution capped at 2,000,000 pixels to prevent VRAM crashes during training.
-
----
-
+(Choose Pipeline1 or pipeline 2)
 ## Pipeline 1 — Manual (RealityScan + LichtFeld Studio)
 
 **Dataset:** InnovationSPIN building, ~60 GB  
@@ -122,7 +109,7 @@ Full-resolution training on the 6 GB dataset required ~80 GB GPU memory. The DGX
 
 ---
 
-## Step 3 — SuperSplat Refinement
+## Step 2 — SuperSplat Refinement
 
 After training, the `.ply` output was imported into **SuperSplat** for post-processing:
 - Visualised the reconstructed Gaussian Splat model
@@ -132,7 +119,7 @@ After training, the `.ply` output was imported into **SuperSplat** for post-proc
 
 ---
 
-## Step 4 — Unreal Engine 5 Integration
+## Step 3 — Unreal Engine 5 Integration
 
 The refined `.ply` was imported into **Unreal Engine 5.1.1** using the **X3DGS plugin**:
 
