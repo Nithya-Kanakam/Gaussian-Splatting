@@ -19,6 +19,22 @@ for high visual fidelity, and one fully automated for scalability on a DGX serve
 **Dataset:** InnovationSPIN building, ~60 GB  
 **Mode:** GUI-based, local machine
 
+### Installation
+
+**RealityScan**
+- Download from the [Epic Games Launcher](https://www.epicgames.com/store/en-US/p/realityscan) (free)
+- Sign in with an Epic Games account
+- Open the launcher → Library → RealityScan → Install
+
+**LichtFeld Studio**
+- Clone from GitHub:
+```bash
+git clone https://github.com/MrNeRF/LichtFeld-Studio
+```
+- Follow setup instructions in the repo README
+- Requires a CUDA-capable GPU (tested on RTX 4060 with 8 GB VRAM)
+
+
 ### Steps
 1. **Data Collection** — GoPro camera with ~80% image overlap; AprilTag markers placed on campus
 2. **RealityScan** — Automated COLMAP-based photogrammetry; generates `cameras.txt`, `images.txt`,
@@ -48,6 +64,34 @@ for high visual fidelity, and one fully automated for scalability on a DGX serve
 
 **Dataset:** Detmold campus building, ~6 GB  
 **Mode:** Headless, SSH, Docker, fully scripted
+
+### Installation & Setup
+
+All installation, setup, and training is fully automated via the bash script.  
+No manual dependency installation needed.
+
+```bash
+# 1. Clone this repository
+git clone https://github.com/Nithya-Kanakam/Gaussian-Splatting.git
+cd Gaussian-Splatting
+
+# 2. Edit the script — set your GPU_ID and WORKSPACE path
+nano bash/gaussian_splatting.sh
+
+# 3. Place your images inside the scene folder
+# Path: /data/pool/(your_username)/gs_pipeline/my_scene/images
+
+# 4. Run the script
+bash bash/gaussian_splatting.sh
+```
+
+The script will automatically:
+- Pull the Docker container (`nvcr.io/nvidia/pytorch:24.01-py3`)
+- Clone the [Graphdeco Gaussian Splatting](https://github.com/graphdeco-inria/gaussian-splatting) repo
+- Install COLMAP, PyTorch submodules, and all dependencies
+- Run COLMAP `convert.py` for camera pose estimation
+- Run `train.py` for Gaussian Splatting training
+- Export the final `point_cloud.ply` to the output directory
 
 ### Steps
 1. **Docker Setup** — NVIDIA PyTorch container (`nvcr.io/nvidia/pytorch:24.01-py3`) on DGX A100
