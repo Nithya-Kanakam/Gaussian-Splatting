@@ -14,6 +14,27 @@ for high visual fidelity, and one fully automated for scalability on a DGX serve
 
 ---
 
+## Step 1 — Data Collection
+
+- **Camera:** GoPro with ~80% image overlap
+- **Markers:** AprilTag markers placed around the campus for spatial reference
+- **Locations:** InnovationSPIN building (~60 GB dataset) and Detmold campus (~6 GB dataset)
+
+---
+
+## Step 2 — COLMAP (Structure-from-Motion)
+
+COLMAP processes the captured images to estimate camera poses and generate the 3D point cloud required for Gaussian Splatting training.
+
+**Output files:**
+- `cameras.txt` — camera intrinsics
+- `images.txt` — camera poses per image
+- `points3D.txt` — sparse 3D point cloud
+
+> Export resolution capped at 2,000,000 pixels to prevent VRAM crashes during training.
+
+---
+
 ## Pipeline 1 — Manual (RealityScan + LichtFeld Studio)
 
 **Dataset:** InnovationSPIN building, ~60 GB  
@@ -37,13 +58,6 @@ git clone https://github.com/MrNeRF/LichtFeld-Studio
 - Export the trained `.ply` file
 - Requires a CUDA-capable GPU (tested on RTX 4060 with 8 GB VRAM)
 
-
-### Steps
-1. **Data Collection** — GoPro camera with ~80% image overlap; AprilTag markers placed on campus
-2. **RealityScan** — Automated COLMAP-based photogrammetry; generates `cameras.txt`, `images.txt`,
-   `points3D.txt` and undistorted images; export capped at 2,000,000 pixels to prevent VRAM crashes
-3. **LichtFeld Studio** — Gaussian Splatting training using the COLMAP outputs
-
 ### Training Parameters
 | Parameter | Value |
 |---|---|
@@ -55,11 +69,6 @@ git clone https://github.com/MrNeRF/LichtFeld-Studio
 ✅ High visual fidelity — building facade, windows, entrance, vegetation all clearly reconstructed  
 ✅ Strong GUI control with real-time feedback  
 ⚠️ Limited scalability due to GPU memory constraints
-
-## Result from pipeline 1
-
-<img width="2880" height="1800" alt="Screenshot 2026-05-27 at 3 21 42 PM" src="https://github.com/user-attachments/assets/bf82eb3e-c437-4c00-ab3b-39b725a0fc2f" />
-
 
 ---
 
@@ -96,13 +105,6 @@ The script will automatically:
 - Run `train.py` for Gaussian Splatting training
 - Export the final `point_cloud.ply` to the output directory
 
-### Steps
-1. **Docker Setup** — NVIDIA PyTorch container (`nvcr.io/nvidia/pytorch:24.01-py3`) on DGX A100
-2. **Dependency Install** — COLMAP, PyTorch, simple-knn, diff-gaussian-rasterization
-3. **COLMAP `convert.py`** — Structure-from-Motion for camera pose estimation (offscreen mode)
-4. **Gaussian Splatting `train.py`** — Training at resolution ÷4 to fit within available GPU memory
-5. **PLY Export** — Final `point_cloud.ply` copied to output directory
-
 ### Why Resolution ÷4?
 Full-resolution training on the 6 GB dataset required ~80 GB GPU memory. The DGX server had
 ~30–50 GB available. Reducing input resolution by factor 4 made training feasible.
@@ -111,18 +113,9 @@ Full-resolution training on the 6 GB dataset required ~80 GB GPU memory. The DGX
 ✅ ~45 min training time  
 ⚠️ No GUI — monitoring only via command-line logs
 
-```bash
-# Edit GPU_ID and WORKSPACE in the script first
-bash gaussian_splatting.sh
-```
-
 ---
-## Result from pipeline 2
 
-<img width="751" height="513" alt="image" src="https://github.com/user-attachments/assets/1928933c-95fb-4455-a424-9983105195d0" />
-
-
-## SuperSplat — Refinement
+## Step 3 — SuperSplat Refinement
 
 After training, the `.ply` output was imported into **SuperSplat** for post-processing:
 - Visualised the reconstructed Gaussian Splat model
@@ -132,7 +125,7 @@ After training, the `.ply` output was imported into **SuperSplat** for post-proc
 
 ---
 
-## Unreal Engine 5 — Export & Integration
+## Step 4 — Unreal Engine 5 Integration
 
 The refined `.ply` was imported into **Unreal Engine 5.1.1** using the **X3DGS plugin**:
 
@@ -144,19 +137,7 @@ The refined `.ply` was imported into **Unreal Engine 5.1.1** using the **X3DGS p
 
 > ⚠️ Note: Constrained to UE5.1.1 — newer UE versions do not have stable `.ply` Gaussian Splat import support via available plugins
 
-<img width="1956" height="1088" alt="Screenshot 2026-05-27 at 3 38 56 PM" src="https://github.com/user-attachments/assets/9c94876a-0589-40f0-8bd7-2cce1e96268e" />
-
----
-
-## Results Summary
-
-| | Pipeline 1 | Pipeline 2 |
-|---|---|---|
-| Dataset | InnovationSPIN (~60 GB) | Detmold campus (~6 GB) |
-| Mode | GUI-based (local) | Headless / automated (DGX server) |
-| Tools | RealityScan, LichtFeld Studio, SuperSplat | Graphdeco, COLMAP, Docker |
-| Training Time | 14h 37min | ~45 min |
-| Output Quality | High fidelity | Validated automated workflow |
+<img width="1956" height="1088" alt="UE5 Integration" src="https://github.com/user-attachments/assets/9c94876a-0589-40f0-8bd7-2cce1e96268e" />
 
 ---
 
@@ -177,7 +158,8 @@ with four interactive game modes:
 The long-term goal is a **Campus Intelligence** system where users explore, learn, and make decisions
 inside a photorealistic digital twin of TH OWL — built on top of the Gaussian Splat reconstruction.
 
-<img width="1402" height="1044" alt="image" src="https://github.com/user-attachments/assets/0461c30e-2132-4fb6-a1d4-c4485f94f3bf" />
+<img width="1402" height="1044" alt="Campus Intelligence" src="https://github.com/user-attachments/assets/0461c30e-2132-4fb6-a1d4-c4485f94f3bf" />
+
 ---
 
 ## Conclusion
@@ -191,12 +173,9 @@ proving Gaussian Splatting as a practical foundation for future campus-scale int
 
 ---
 
-## Large Files (Google Drive)
+## 📄 Results
 
-Generated `.ply` files exceed GitHub's size limit and are available here:  
-🔗 [Google Drive – Gaussian Splat .ply files](https://drive.google.com/drive/folders/1_tO3gzsEIkANluHxq5s5XHTrmE8MaNiY?usp=sharing)
-
-🔗 [Google Drive – Gaussian Splat video](https://drive.google.com/file/d/1U1XIdo7oPOlCeSiUpbphKQ0Sf2UHlZKV/view?usp=sharing)
+See [RESULTS.md](./RESULTS.md) for full pipeline comparison, training metrics, and output images.
 
 ---
 
@@ -204,7 +183,3 @@ Generated `.ply` files exceed GitHub's size limit and are available here:
 
 `3D Gaussian Splatting` `COLMAP` `RealityScan` `LichtFeld Studio` `SuperSplat`  
 `Unreal Engine 5.1.1` `X3DGS Plugin` `NVIDIA DGX A100` `Docker` `PyTorch` `Python` `Bash`
-
-
-
-
