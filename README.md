@@ -188,11 +188,6 @@ proving Gaussian Splatting as a practical foundation for future campus-scale int
 
 ---
 
-## Repository Structure
-├── bash/                       # Automated pipeline script (Docker + COLMAP + Training)
-├── paper/                      # Full project paper (PDF)
-├── presentation/               # Project presentation slides (PDF)
-
 ## Large Files (Google Drive)
 
 Generated `.ply` files exceed GitHub's size limit and are available here:  
