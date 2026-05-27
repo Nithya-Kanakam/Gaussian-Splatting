@@ -35,12 +35,14 @@ Two pipelines were implemented:
 - Interactive elements: first-person movement, shooting mechanics, target blocks
 
 ## Repository Structure
+
 ├── gaussian_splatting.sh       # Automated pipeline script (Docker + COLMAP + Training)
 ├── paper/                      # Full project paper (PDF)
 ├── presentation/               # Project presentation slides (PDF)
 ├── gaussian_splats/            # Output .ply files
 ├── videos/                     # Reconstruction and demo videos
 └── unreal_engine/              # Screenshots from UE5 integration
+
 ## Requirements (Pipeline 2 – Server)
 
 - NVIDIA DGX A100 (or any CUDA-capable GPU)
