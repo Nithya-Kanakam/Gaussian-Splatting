@@ -31,7 +31,10 @@ for high visual fidelity, and one fully automated for scalability on a DGX serve
 ```bash
 git clone https://github.com/MrNeRF/LichtFeld-Studio
 ```
-- Follow setup instructions in the repo README
+- Open LichtFeld Studio
+- Import the COLMAP output folder (containing `cameras.txt`, `images.txt`, `points3D.txt`)
+- Set training parameters and click **Train**
+- Export the trained `.ply` file
 - Requires a CUDA-capable GPU (tested on RTX 4060 with 8 GB VRAM)
 
 
