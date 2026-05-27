@@ -1,4 +1,4 @@
-# 3D Gaussian Splatting – TH OWL Campus Reconstruction
+# 3D Gaussian Splatting — TH OWL Campus Reconstruction
 
 > Reconstructing TH OWL campus buildings from real-world image data using 3D Gaussian Splatting,
 > refined with SuperSplat, and integrated into Unreal Engine 5 as an interactive first-person environment.
