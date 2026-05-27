@@ -46,6 +46,13 @@ COLMAP processes the captured images to estimate camera poses and generate the 3
 - Download from the [Epic Games Launcher](https://www.epicgames.com/store/en-US/p/realityscan) (free)
 - Sign in with an Epic Games account
 - Open the launcher → Library → RealityScan → Install
+- Import your captured images into RealityScan
+- RealityScan automatically runs **COLMAP** internally (Structure-from-Motion)
+- Export the project — this generates the 3 files needed for Gaussian Splatting training:
+  - `cameras.txt` — camera intrinsics
+  - `images.txt` — camera poses per image
+  - `points3D.txt` — sparse 3D point cloud
+- Export resolution capped at **2,000,000 pixels** to prevent VRAM crashes
 
 **LichtFeld Studio**
 - Clone from GitHub:
